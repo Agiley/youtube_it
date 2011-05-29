@@ -9,8 +9,6 @@ begin
     gem.description = %Q{Upload, delete, update, comment on youtube videos all from one gem.}
     gem.email = "kylejginavan@gmail.com"
     gem.homepage = "http://github.com/kylejginavan/youtube_it"
-    gem.add_dependency('oauth','>=0.4.4')
-    gem.add_dependency('builder')
     gem.authors = ["kylejginavan","chebyte", "mseppae"]
   end
   Jeweler::GemcutterTasks.new
@@ -34,16 +32,16 @@ begin
   end
 rescue LoadError
   task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install rcov"
   end
 end
 
-task :test => :check_dependencies
+#task :test => :check_dependencies
 
 task :default => :test
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
+require 'rdoc/task'
+RDoc::Task.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'

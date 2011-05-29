@@ -46,9 +46,16 @@ end
 
 %w( 
   version
+  jruby_patch
   client
   record
-  parser
+  parsers/feed_parser
+  parsers/comments_feed_parser
+  parsers/playlist_feed_parser
+  parsers/playlists_feed_parser
+  parsers/profile_feed_parser
+  parsers/video_feed_parser
+  parsers/videos_feed_parser
   model/author
   model/category
   model/comment

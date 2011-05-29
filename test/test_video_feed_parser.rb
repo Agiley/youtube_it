@@ -255,7 +255,7 @@ class TestVideoFeedParser < Test::Unit::TestCase
 
   def with_video_response &block
     File.open(File.dirname(__FILE__) + '/files/youtube_video_response.xml') do |xml|
-      parser = YouTubeIt::Parser::VideoFeedParser.new xml.read
+      parser = YouTubeIt::Parsers::VideoFeedParser.new xml.read
       yield parser
     end
   end

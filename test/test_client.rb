@@ -182,7 +182,7 @@ class TestClient < Test::Unit::TestCase
   def test_return_upload_info_for_upload_from_browser
     response = @client.upload_token(OPTIONS)
     assert response.kind_of?(Hash)
-    assert response.size, 2
+    assert_equal(response.size, 2)
     response.each do |k,v|
       assert v
     end
@@ -237,7 +237,7 @@ class TestClient < Test::Unit::TestCase
     assert comment.match(/test comment/)
   end
   
-  def test_shoul_add_and_delete_video_to_favorite
+  def test_should_add_and_delete_video_to_favorite
     video_id ="H1TrfM3xbgc"
     result = @client.add_favorite(video_id)
     assert result[:code], 201
@@ -272,7 +272,6 @@ class TestClient < Test::Unit::TestCase
     assert result.last.title, "rock"
   end
 
-  
   def test_should_determine_if_widescreen_video_is_widescreen
     widescreen_id = 'QqQVll-MP3I'
   

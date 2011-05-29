@@ -1,0 +1,25 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    builder (3.0.0)
+    git (1.2.5)
+    jeweler (1.6.0)
+      bundler (~> 1.0.0)
+      git (>= 1.2.5)
+      rake
+    nokogiri (1.4.4.2-java)
+      weakling (>= 0.0.3)
+    oauth (0.4.4)
+    rake (0.9.0)
+    rcov (0.9.9-java)
+    weakling (0.0.4-java)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  builder
+  jeweler
+  nokogiri
+  oauth (>= 0.4.4)
+  rcov

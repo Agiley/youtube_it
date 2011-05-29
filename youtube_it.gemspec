@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["kylejginavan", "chebyte", "mseppae"]
-  s.date = %q{2011-04-08}
+  s.date = %q{2011-05-29}
   s.description = %q{Upload, delete, update, comment on youtube videos all from one gem.}
   s.email = %q{kylejginavan@gmail.com}
   s.extra_rdoc_files = [
@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
     "lib/youtube_it/model/thumbnail.rb",
     "lib/youtube_it/model/user.rb",
     "lib/youtube_it/model/video.rb",
-    "lib/youtube_it/parser.rb",
     "lib/youtube_it/record.rb",
     "lib/youtube_it/request/base_search.rb",
     "lib/youtube_it/request/standard_search.rb",
@@ -44,7 +43,6 @@ Gem::Specification.new do |s|
     "lib/youtube_it/request/video_upload.rb",
     "lib/youtube_it/response/video_search.rb",
     "lib/youtube_it/version.rb",
-    "pkg/youtube_it-1.4.1.gem",
     "test/files/youtube_video_response.xml",
     "test/helper.rb",
     "test/test.mov",
@@ -57,30 +55,31 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/kylejginavan/youtube_it}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.2}
+  s.rubygems_version = %q{1.5.1}
   s.summary = %q{The most complete Ruby wrapper for youtube api's}
-  s.test_files = [
-    "test/helper.rb",
-    "test/test_chain_io.rb",
-    "test/test_client.rb",
-    "test/test_video.rb",
-    "test/test_video_feed_parser.rb",
-    "test/test_video_search.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<oauth>, [">= 0.4.4"])
-      s.add_runtime_dependency(%q<builder>, [">= 0"])
+      s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
+      s.add_development_dependency(%q<builder>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<oauth>, [">= 0.4.4"])
+      s.add_dependency(%q<nokogiri>, [">= 0"])
       s.add_dependency(%q<builder>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
     s.add_dependency(%q<oauth>, [">= 0.4.4"])
+    s.add_dependency(%q<nokogiri>, [">= 0"])
     s.add_dependency(%q<builder>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<rcov>, [">= 0"])
   end
 end
 

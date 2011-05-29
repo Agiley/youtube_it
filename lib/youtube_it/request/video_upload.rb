@@ -93,6 +93,7 @@ class YouTubeIt
         if @access_token.nil?
           upload_header.merge!(authorization_headers).delete("GData-Version")
           http = Net::HTTP.new(uploads_url)
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
           http.set_debug_output(logger) if @http_debugging
           path = '/feeds/api/users/default/uploads'
           http.start do | session |
@@ -106,7 +107,7 @@ class YouTubeIt
           response = @access_token.post(url, post_body_io, upload_header)
         end
         raise_on_faulty_response(response)
-        return YouTubeIt::Parser::VideoFeedParser.new(response.body).parse
+        return YouTubeIt::Parsers::VideoFeedParser.new(response.body).parse
       end
 
       # Updates a video in YouTube.  Requires:
@@ -138,7 +139,7 @@ class YouTubeIt
         end
 
         raise_on_faulty_response(response)
-        return YouTubeIt::Parser::VideoFeedParser.new(response.body).parse
+        return YouTubeIt::Parsers::VideoFeedParser.new(response.body).parse
       end
 
       # Delete a video on YouTube
@@ -216,7 +217,7 @@ class YouTubeIt
           response = session.get(comment_url)
           raise_on_faulty_response(response)
           {:code => response.code, :body => response.body}
-          return YouTubeIt::Parser::CommentsFeedParser.new(response).parse
+          return YouTubeIt::Parsers::CommentsFeedParser.new(response).parse
         end
       end
 
@@ -268,7 +269,7 @@ class YouTubeIt
         http_connection do |session|
           response = session.get(profile_url)
           raise_on_faulty_response(response)
-          return YouTubeIt::Parser::ProfileFeedParser.new(response).parse
+          return YouTubeIt::Parsers::ProfileFeedParser.new(response).parse
         end
       end
 
@@ -277,7 +278,7 @@ class YouTubeIt
         http_connection do |session|
           response = session.get(playlist_url)
           raise_on_faulty_response(response)
-          return YouTubeIt::Parser::PlaylistFeedParser.new(response).parse
+          return YouTubeIt::Parsers::PlaylistFeedParser.new(response).parse
         end
       end
 
@@ -295,7 +296,7 @@ class YouTubeIt
         http_connection do |session|
           response = session.get(playlist_url)
           raise_on_faulty_response(response)
-          return YouTubeIt::Parser::PlaylistsFeedParser.new(response).parse #return response.body
+          return YouTubeIt::Parsers::PlaylistsFeedParser.new(response).parse #return response.body
         end
       end
 
@@ -318,7 +319,7 @@ class YouTubeIt
           response = @access_token.post("http://%s%s" % [base_url, playlist_url], playlist_body, playlist_header)
         end
         raise_on_faulty_response(response)
-        return YouTubeIt::Parser::PlaylistFeedParser.new(response).parse
+        return YouTubeIt::Parsers::PlaylistFeedParser.new(response).parse
       end
 
       def add_video_to_playlist(playlist_id, video_id)
@@ -362,7 +363,7 @@ class YouTubeIt
           response = @access_token.put("http://%s%s" % [base_url, playlist_url], playlist_body, playlist_header)
         end
         raise_on_faulty_response(response)
-        return YouTubeIt::Parser::PlaylistFeedParser.new(response).parse
+        return YouTubeIt::Parsers::PlaylistFeedParser.new(response).parse
       end
 
       def delete_video_from_playlist(playlist_id, playlist_entry_id)
@@ -524,6 +525,7 @@ class YouTubeIt
         @auth_token ||= begin
           http = Net::HTTP.new("www.google.com", 443)
           http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
           body = "Email=#{YouTubeIt.esc @user}&Passwd=#{YouTubeIt.esc @password}&service=youtube&source=#{YouTubeIt.esc @client_id}"
           response = http.post("/youtube/accounts/ClientLogin", body, "Content-Type" => "application/x-www-form-urlencoded")
           raise UploadError, response.body[/Error=(.+)/,1] if response.code.to_i != 200
@@ -597,6 +599,7 @@ class YouTubeIt
 
       def http_connection
         http = Net::HTTP.new(base_url)
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         http.set_debug_output(logger) if @http_debugging
         http.start do |session|
           yield(session)

@@ -15,3 +15,4 @@ sphinx/**/*
 public/packages/*
 .gitconfig
 pkg/**/*
+rdoc/

@@ -16,3 +16,4 @@ public/packages/*
 .gitconfig
 pkg/**/*
 rdoc/
+Gemfile.lock
